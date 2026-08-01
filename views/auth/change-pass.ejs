@@ -1,0 +1,58 @@
+<%- include('../layout/start.ejs') %>
+<%- include('../layout/nav.ejs') %>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-5">
+            
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4 p-md-5">
+                    <h4 class="fw-bold mb-4 text-center">تغییر رمز عبور</h4>
+
+                    <!-- نمایش ارورها در صورت وجود -->
+                    <% if (errors) { %>
+                        <div class="mb-3">
+                            <div class="alert alert-danger" role="alert">
+                                <% for (const error in errors) {%>
+                                    <p><%= errors[error] %></p>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <form action="/auth/change-password" method="POST">
+                        <div class="mb-3">
+                            <label for="currentPassword" class="form-label text-muted small">رمز عبور فعلی</label>
+                            <input type="password" class="form-control text-start" id="currentPassword" name="currentPassword" dir="ltr" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label text-muted small">رمز عبور جدید</label>
+                            <input type="password" class="form-control text-start" id="newPassword" name="newPassword" dir="ltr" required>
+                        </div>
+
+                        <div class="mb-5">
+                            <label for="confirmPassword" class="form-label text-muted small">تکرار رمز عبور جدید</label>
+                            <input type="password" class="form-control text-start" id="confirmPassword" name="confirmPassword" dir="ltr" required>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg shadow-sm">تغییر رمز</button>
+                            <a href="/profile" class="btn btn-light text-muted">انصراف</a>
+                        </div>
+                    </form>
+
+                    <hr />
+
+                    <p class="text-center mb-0">
+                        <a href="/auth/reset-password">فراموشی رمز عبور</a>
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- include('../layout/end.ejs') %>

@@ -1,0 +1,74 @@
+<%- include('../layout/start.ejs') %>
+<%- include('../layout/nav.ejs') %>
+
+<div class="container py-5">
+    <% if (success) { %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+    <% } %>
+    <h2 class="fw-bold mb-4">سفارشات من</h2>
+
+    <% if (orders && orders.length > 0) { %>
+        <div class="row g-4">
+            <% orders.forEach(order => { %>
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 rounded-3">
+                        
+                        <!-- هدر کارت سفارش -->
+                        <div class="card-header bg-light d-flex flex-wrap justify-content-between align-items-center gap-2 py-3">
+                            <div>
+                                <span class="text-muted small">شناسه سفارش:</span>
+                                <span class="fw-bold text-dark font-monospace"><%= order._id %></span>
+                            </div>
+                            <div>
+                                <span class="text-muted small">تاریخ ثبت:</span>
+                                <span class="fw-bold"><%= new Date(order.createdAt).toLocaleDateString('fa-IR') %></span>
+                            </div>
+                            <div>
+                                <span class="badge bg-success-subtle text-success fs-6 border border-success">
+                                    <%= order.status || 'تکمیل شده' %>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- بدنه کارت (لیست آیتم‌ها) -->
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush">
+                                <% order.items.forEach(item => { %>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <span class="fw-bold text-dark"><%= item.title %></span>
+                                            <span class="badge bg-secondary">تعداد: <%= item.quantity %></span>
+                                        </div>
+                                        <div class="fw-bold text-secondary">
+                                            <%= (item.price * item.quantity).toLocaleString('fa-IR') %> تومان
+                                        </div>
+                                    </li>
+                                <% }) %>
+                            </ul>
+                        </div>
+
+                        <!-- فوتر کارت (جمع کل) -->
+                        <div class="card-footer bg-white d-flex justify-content-between align-items-center py-3">
+                            <span class="fw-bold">مبلغ کل سفارش:</span>
+                            <span class="fs-5 fw-bold text-success">
+                                <%= order.amount.toLocaleString('fa-IR') %> تومان
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } else { %>
+        <!-- نمایش پیام عدم وجود سفارش -->
+        <div class="alert alert-info text-center py-5 shadow-sm rounded-3">
+            هیچ سفارشی برای شما ثبت نشده است.
+            <br>
+            <a href="/products" class="btn btn-primary mt-3">مشاهده محصولات</a>
+        </div>
+    <% } %>
+</div>
+
+<%- include('../layout/end.ejs') %>

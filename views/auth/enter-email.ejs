@@ -1,0 +1,66 @@
+<%- include('../layout/start.ejs') %>
+<%- include('../layout/nav.ejs') %>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-5">
+            
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4 p-md-5">
+                    
+                    <div class="text-center mb-4">
+                        <h4 class="fw-bold mb-2">فراموشی رمز عبور</h4>
+                        <p class="text-muted small">ایمیل خود را وارد کنید تا لینک بازیابی برای شما ارسال شود.</p>
+                    </div>
+
+                    <% if (success) { %>
+                        <div class="alert alert-success text-center" role="alert">
+                            <%= success %>
+                        </div>
+                    <% } %>
+
+                    <% if (errors) { %>
+                        <div class="mb-3">
+                            <div class="alert alert-danger" role="alert">
+                                <% for (const error in errors) {%>
+                                    <p><%= errors[error] %></p>
+                                <% } %>
+                            </div>
+                        </div>
+                    <% } %>
+
+                    <form action="/auth/reset-password-request" method="post">
+                        <div class="mb-4">
+                            <label for="email" class="form-label text-muted small">آدرس ایمیل</label>
+                            <input 
+                                type="email" 
+                                class="form-control form-control-lg text-start" 
+                                id="email" 
+                                name="email" 
+                                placeholder="example@email.com" 
+                                dir="ltr" 
+                                required
+                            >
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg shadow-sm">
+                                ارسال لینک بازیابی
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <a href="/auth/login" class="text-decoration-none small text-secondary">
+                            بازگشت به صفحه ورود
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- include('../layout/end.ejs') %>

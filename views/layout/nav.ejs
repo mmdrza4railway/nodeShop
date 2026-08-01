@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">فروشگاه</a>
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link <%= path === "/products" ? "active" : "" %>" href="/products">محصولات</a>
+                </li>
+                
+                <% if (user && ["admin", "superadmin"].includes(user.role)) { %>
+                    <li class="nav-item">
+                        <a class="nav-link <%= path === "/products/add" ? "active" : "" %>" href="/products/add">افزودن محصول</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <%= path === "/products/manage" ? "active" : "" %>" href="/products/manage">مدیریت محصولات</a>
+                    </li>
+                <% } %>
+                <% if (!user) { %>
+                    <li class="nav-item">
+                        <a class="nav-link <%= path === "/auth/login" ? "active" : "" %>" href="/auth/login">ورود</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <%= path === "/auth/signup" ? "active" : "" %>" href="/auth/signup">ثبت‌نام</a>
+                    </li>
+                <% } %>
+                <% if (user) { %>
+                    <li class="nav-item">
+                        <a class="nav-link <%= path === "/cart" ? "active" : "" %>" href="/cart">سبد خرید</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <%= path === "/orders" ? "active" : "" %>" href="/orders">سفارشات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link <%= path === "/profile" ? "active" : "" %>" href="/profile">مشخصات کاربری</a>
+                    </li>
+                    <li class="nav-item">
+                         <form action="/auth/logout" method="post">
+                            <button class="nav-link" type="submit">خروج</button>
+                         </form>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>

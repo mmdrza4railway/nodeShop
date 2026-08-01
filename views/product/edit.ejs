@@ -1,0 +1,75 @@
+<%- include('../layout/start.ejs') %> <%- include('../layout/nav.ejs') %>
+
+<% if (errors) { %>
+    <div class="container mt-4">
+        <div class="alert alert-danger" role="alert">
+            <% for (const error in errors) {%>
+                <p><%= errors[error] %></p>
+            <% } %>
+        </div>
+    </div>
+<% } %>
+
+<form
+    action="/products/edit/<%= product._id %>"
+    method="POST"
+    enctype="multipart/form-data"
+    class="p-4 border rounded container mt-4"
+>
+    <div class="mb-3">
+        <label for="title" class="form-label">عنوان محصول</label>
+        <input
+            type="text"
+            class="form-control"
+            id="title"
+            name="title"
+            value="<%= product.title || '' %>"
+            required
+        />
+    </div>
+
+    <div class="mb-3">
+        <label for="desc" class="form-label">توضیحات</label>
+        <textarea class="form-control" id="desc" name="desc" rows="4" required><%= product.desc || '' %></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="price" class="form-label">قیمت (تومان)</label>
+        <input
+            type="number"
+            class="form-control"
+            id="price"
+            name="price"
+            value="<%= product.price || '' %>"
+            min="0"
+            required
+        />
+    </div>
+
+    <div class="mb-3">
+        <label for="image" class="form-label">تصویر محصول</label>
+        <input
+            type="file"
+            class="form-control"
+            id="image"
+            name="image"
+            accept="image/*"
+        />
+    </div>
+
+    <div class="mb-3 form-check">
+        <input
+            type="checkbox"
+            class="form-check-input"
+            id="status"
+            name="status"
+            value="1"
+            <%= product.status == true ? 'checked' : '' %>
+        />
+        <label class="form-check-label" for="status">فعال</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">ثبت تغییرات</button>
+</form>
+
+<%- include('../layout/end.ejs') %>

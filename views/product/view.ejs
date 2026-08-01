@@ -1,0 +1,45 @@
+<%- include('../layout/start.ejs') %>
+<%- include('../layout/nav.ejs') %>
+
+<div class="container py-5">
+    <div class="row align-items-center g-5">
+        
+        <div class="col-12 col-md-6 text-center">
+            <img 
+                src="/public/products/<%= product.image %>" 
+                class="img-fluid rounded shadow-sm w-100" 
+                alt="<%= product.title %>"
+                style="max-height: 500px; object-fit: cover;"
+            >
+        </div>
+
+        <div class="col-12 col-md-6">
+            <h1 class="fw-bold mb-3 text-dark">
+                <%= product.title %>
+            </h1>
+            
+            <p class="text-secondary mb-4 lh-lg fs-5">
+                <%= product.desc %>
+            </p>
+
+            <h3 class="text-success fw-bold mb-5">
+                <% if (product.price === 0 || product.price === "0") { %>
+                    رایگان
+                <% } else { %>
+                    <%= Number(product.price).toLocaleString('fa-IR') %> تومان
+                <% } %>
+            </h3>
+
+            <form action="/cart/add/<%= product._id %>" method="POST" class="d-flex align-items-center gap-3">
+                <input type="hidden" name="productId" value="<%= product._id %>">
+                
+                <button type="submit" class="btn btn-primary btn-lg px-5 shadow-sm">
+                    افزودن به سبد خرید
+                </button>
+            </form>
+            
+        </div>
+    </div>
+</div>
+
+<%- include('../layout/end.ejs') %>

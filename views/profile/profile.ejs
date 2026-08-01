@@ -1,0 +1,97 @@
+<%- include('../layout/start.ejs') %>
+<%- include('../layout/nav.ejs') %>
+
+<div class="container py-5">
+    <% if (success) { %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+    <% } %>
+    <% if (warn) { %>
+        <div class="alert alert-warning" role="alert">
+            <%= warn %>
+        </div>
+    <% } %>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            
+            <!-- کارت پروفایل -->
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-body p-4 p-md-5">
+                    <h3 class="fw-bold mb-4 text-center border-bottom pb-3">پروفایل کاربری</h3>
+
+                    <!-- اطلاعات کاربر -->
+                    <div class="mb-4">
+                        <label class="text-muted small mb-1">نام و نام خانوادگی:</label>
+                        <div class="fs-5 fw-bold"><%= user.name %></div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="text-muted small mb-1">ایمیل:</label>
+                        <div class="fs-5"><%= user.email %></div>
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="text-muted small mb-1">موجودی حساب:</label>
+                        <div class="fs-3 text-success fw-bold">
+                            <%= (user.balance || 0).toLocaleString('fa-IR') %> <span class="fs-6 text-dark">تومان</span>
+                        </div>
+                    </div>
+
+                    <!-- دکمه‌های عملیاتی -->
+                    <div class="d-flex flex-column flex-sm-row gap-3">
+                        <button type="button" class="btn btn-success btn-lg flex-grow-1 shadow-sm" data-bs-toggle="modal" data-bs-target="#increaseBalanceModal">
+                            افزایش موجودی
+                        </button>
+                        
+                        <a href="/auth/change-password" class="btn btn-outline-secondary btn-lg flex-grow-1 shadow-sm">
+                            تغییر رمز عبور
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- مدال (Modal) افزایش موجودی -->
+<div class="modal fade" id="increaseBalanceModal" tabindex="-1" aria-labelledby="increaseBalanceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            
+            <div class="modal-header bg-light">
+                <h5 class="modal-title fw-bold" id="increaseBalanceModalLabel">افزایش موجودی حساب</h5>
+                <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="بستن"></button>
+            </div>
+            
+            <!-- فرم ارسال مبلغ -->
+            <form action="/payment/increase-balance" method="POST">
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label for="amount" class="form-label text-muted">مبلغ مورد نظر خود را (به تومان) وارد کنید:</label>
+                        <input 
+                            type="number" 
+                            class="form-control form-control-lg form-control-ltr text-center" 
+                            id="amount" 
+                            name="amount" 
+                            placeholder="مثلاً 50000" 
+                            min="10000" 
+                            required
+                            dir="ltr"
+                        >
+                    </div>
+                </div>
+                
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">انصراف</button>
+                    <button type="submit" class="btn btn-success px-4">تایید و پرداخت</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<%- include('../layout/end.ejs') %>

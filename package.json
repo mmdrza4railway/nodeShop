@@ -1,0 +1,25 @@
+{
+  "name": "shop-node",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "mmdrza",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "mongoose": "^9.8.0",
+    "multer": "^2.2.0",
+    "nodemailer": "^9.0.3",
+    "zarinpal-checkout": "^1.1.1"
+  }
+}

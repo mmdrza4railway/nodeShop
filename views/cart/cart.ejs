@@ -1,0 +1,97 @@
+<%- include('../layout/start.ejs') %>
+<%- include('../layout/nav.ejs') %>
+
+<div class="container py-5">
+    <% if (success) { %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+    <% } %>
+    <% if (warn) { %>
+        <div class="alert alert-warning" role="alert">
+            <%= warn %>
+        </div>
+    <% } %>
+    
+    <h2 class="fw-bold mb-4">سبد خرید شما</h2>
+
+    <% if (items && items.length > 0) { %>
+        <div class="row g-4">
+            
+            <!-- لیست محصولات سبد خرید -->
+            <div class="col-12 col-lg-8">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-0">
+                        <% items.forEach(item => { %>
+                            <div class="row align-items-center border-bottom p-3 m-0">
+                                
+                                <!-- تصویر -->
+                                <div class="col-4 col-md-2">
+                                    <img src="/public/products/<%= item.product.image %>" class="img-fluid rounded" alt="<%= item.product.title %>">
+                                </div>
+                                
+                                <!-- عنوان -->
+                                <div class="col-8 col-md-5">
+                                    <h5 class="fw-bold mb-0 text-dark"><%= item.product.title %></h5>
+                                </div>
+                                
+                                <!-- تعداد همراه با دکمه‌های افزایش و کاهش -->
+                                <div class="col-6 col-md-2 mt-3 mt-md-0 d-flex justify-content-start justify-content-md-center align-items-center">
+                                    
+                                    <!-- فرم کاهش تعداد -->
+                                    <form action="/cart/decrease/<%= item.product._id %>" method="POST" class="m-0">
+                                        <button type="submit" class="btn btn-outline-danger btn-sm fw-bold" style="width: 32px; height: 32px;">-</button>
+                                    </form>
+
+                                    <!-- نمایش تعداد -->
+                                    <span class="mx-3 fw-bold fs-6"><%= item.quantity %></span>
+
+                                    <!-- فرم افزایش تعداد -->
+                                    <form action="/cart/increase/<%= item.product._id %>" method="POST" class="m-0">
+                                        <button type="submit" class="btn btn-outline-success btn-sm fw-bold" style="width: 32px; height: 32px;">+</button>
+                                    </form>
+                                    
+                                </div>
+                                
+                                <!-- قیمت کل این ردیف (قیمت محصول ضربدر تعداد) -->
+                                <div class="col-6 col-md-3 mt-3 mt-md-0 text-end">
+                                    <span class="fw-bold text-success text-nowrap">
+                                        <%= (item.product.price * item.quantity).toLocaleString('fa-IR') %> تومان
+                                    </span>
+                                </div>
+
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+
+            <!-- بخش ثبت سفارش -->
+            <div class="col-12 col-lg-4">
+                <div class="card shadow-sm border-0 bg-light sticky-top" style="top: 20px;">
+                    <div class="card-body p-4">
+                        <h5 class="fw-bold mb-4 border-bottom pb-3">خلاصه سفارش</h5>
+                        <h5 class="mb-4 border-bottom pb-3">قیمت نهایی: <%= totalPrice.toLocaleString("fa-IR") %> تومان</h5>
+                        
+                        <form action="/orders/checkout" method="POST">
+                            <button type="submit" class="btn btn-success btn-lg w-100 shadow-sm">
+                                ثبت نهایی سفارش
+                            </button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    <% } else { %>
+        <!-- پیام سبد خرید خالی -->
+        <div class="alert alert-warning text-center py-5 fs-5 shadow-sm rounded">
+            سبد خرید شما خالی است! 
+            <br>
+            <a href="/products" class="btn btn-primary mt-3">بازگشت به فروشگاه</a>
+        </div>
+    <% } %>
+</div>
+
+<%- include('../layout/end.ejs') %>

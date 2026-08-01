@@ -1,0 +1,80 @@
+<%- include('../layout/start.ejs') %> <%- include('../layout/nav.ejs') %>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow">
+                <div class="card-body p-4">
+                    <h2 class="text-center mb-4">ثبت نام</h2>
+
+                    <form action="/auth/signup" method="POST">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">نام</label>
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="name"
+                                name="name"
+                                placeholder="نام خود را وارد کنید"
+                                required
+                                value="<%= inputs?.name || '' %>"
+                            />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">ایمیل</label>
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="email"
+                                name="email"
+                                placeholder="example@email.com"
+                                required
+                                dir="ltr"
+                                value="<%= inputs?.email || '' %>"
+                            />
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label"
+                                >رمز عبور</label
+                            >
+                            <input
+                                type="password"
+                                class="form-control"
+                                id="password"
+                                name="password"
+                                placeholder="********"
+                                required
+                                dir="ltr"
+                            />
+                        </div>
+
+                        <% if (errors) { %>
+                            <div class="mb-3">
+                                <div class="alert alert-danger" role="alert">
+                                    <% for (const error in errors) {%>
+                                        <p><%= errors[error] %></p>
+                                    <% } %>
+                                </div>
+                            </div>
+                        <% } %>
+
+                        <button type="submit" class="btn btn-primary w-100">
+                            ثبت نام
+                        </button>
+                    </form>
+
+                    <hr />
+
+                    <p class="text-center mb-0">
+                        قبلاً ثبت نام کرده‌اید؟
+                        <a href="/auth/login">ورود</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../layout/end.ejs') %>
