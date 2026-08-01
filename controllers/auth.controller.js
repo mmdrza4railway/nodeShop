@@ -212,14 +212,7 @@ export const getCreateResetToken = async (req, res) => {
             from: "admin@nodeshop.com",
             to: req.user.email,
             subject: "بازیابی رمز عبور",
-            html: `
-                <div style="direction: rtl; text-align: right; font-family: Tahoma, sans-serif;">
-                    <h3>درخواست تغییر رمز عبور</h3>
-                    <p>شما درخواست بازیابی رمز عبور داده‌اید. برای تنظیم رمز جدید روی لینک زیر کلیک کنید:</p>
-                    <p><a href="http://localhost:3000/auth/reset-password/${token}" style="background-color: #0d6efd; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">تنظیم رمز عبور جدید</a></p>
-                    <p>این لینک تا 15 دقیقه معتبر است.</p>
-                </div>
-            `,
+            html: '<div style="direction: rtl; text-align: right; font-family: Tahoma, sans-serif;"><h3>درخواست تغییر رمز عبور</h3><p>شما درخواست بازیابی رمز عبور داده‌اید. برای تنظیم رمز جدید روی لینک زیر کلیک کنید:</p><p><a href=`${process.env.URL}/auth/reset-password/${token}`` style="background-color: #0d6efd; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">تنظیم رمز عبور جدید</a></p><p>این لینک تا 15 دقیقه معتبر است.</p></div>',
         });
         await req.user.save();
 
@@ -339,14 +332,7 @@ export const postResetPassReq = async (req, res) => {
             from: "admin@nodeshop.com",
             to: findUser.email,
             subject: "بازیابی رمز عبور",
-            html: `
-                <div style="direction: rtl; text-align: right; font-family: Tahoma, sans-serif;">
-                    <h3>درخواست تغییر رمز عبور</h3>
-                    <p>شما درخواست بازیابی رمز عبور داده‌اید. برای تنظیم رمز جدید روی لینک زیر کلیک کنید:</p>
-                    <p><a href="http://localhost:3000/auth/reset-password/${token}" style="background-color: #0d6efd; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">تنظیم رمز عبور جدید</a></p>
-                    <p>این لینک تا 15 دقیقه معتبر است.</p>
-                </div>
-            `,
+            html: '<div style="direction: rtl; text-align: right; font-family: Tahoma, sans-serif;"><h3>درخواست تغییر رمز عبور</h3><p>شما درخواست بازیابی رمز عبور داده‌اید. برای تنظیم رمز جدید روی لینک زیر کلیک کنید:</p><p><a href=`${process.env.URL}/auth/reset-password/${token}`` style="background-color: #0d6efd; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">تنظیم رمز عبور جدید</a></p><p>این لینک تا 15 دقیقه معتبر است.</p></div>',
         });
         await findUser.save();
 

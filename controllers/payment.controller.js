@@ -14,7 +14,7 @@ export const increaseBalance = async (req, res) => {
 
         const request = await zarinpal.PaymentRequest({
             Amount: amount,
-            CallbackURL: "http://localhost:3000/payment/check",
+            CallbackURL: `${process.env.URL}/payment/check`,
             Description: req.user._id,
             Email: req.user.email,
             Mobile: "09120000000",
