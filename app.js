@@ -45,6 +45,6 @@ app.use("/profile", profileRouter);
 app.use("/payment", paymentRouter);
 app.use("/orders", orderRouter)
 
-app.listen(process.env.PORT || 3000, "0.0.0.0", () => {
+app.listen(process.env.PORT || 3000, () => {
     connectDB();
 });
